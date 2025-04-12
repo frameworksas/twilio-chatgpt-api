@@ -16,7 +16,7 @@ app.post('/chat', async (req, res) => {
 
     try {
         const response = await axios.post(
-            'https://app.customgpt.ai/api/v1/chat/completions',
+            'https://app.customgpt.ai/api/v1/openai/chat/completions',
             {
                 agent_id: CUSTOMGPT_AGENT_ID,
                 messages: [
