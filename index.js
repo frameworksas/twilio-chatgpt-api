@@ -16,15 +16,9 @@ app.post('/chat', async (req, res) => {
 
     try {
         const response = await axios.post(
-            'https://app.customgpt.ai/api/v1/openai/chat/completions',
+            `https://app.customgpt.ai/api/v1/chat/${CUSTOMGPT_AGENT_ID}`,
             {
-                agent_id: CUSTOMGPT_AGENT_ID,
-                messages: [
-                    {
-                        role: 'user',
-                        content: userMessage
-                    }
-                ]
+                input: userMessage
             },
             {
                 headers: {
@@ -34,16 +28,16 @@ app.post('/chat', async (req, res) => {
             }
         );
 
-        const reply = response.data.choices[0].message.content;
+        const reply = response.data.response;
         res.json({ reply });
     } catch (error) {
         console.error(error?.response?.data || error.message);
         res.status(500).json({
-            reply: "Désolée, je n'ai pas pu répondre à votre question. Veuillez visiter notre site ou nous contacter."
+            reply: "Désolée, une erreur est survenue. Veuillez consulter notre site ou nous écrire."
         });
     }
 });
 
 app.listen(port, () => {
-    console.log(`CustomGPT API server is running on port ${port}`);
+    console.log(`CustomGPT FINAL API server running on port ${port}`);
 });
