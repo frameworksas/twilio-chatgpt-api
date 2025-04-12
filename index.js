@@ -5,8 +5,9 @@ const axios = require('axios');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Pas besoin de l'ID numérique ici
 const CUSTOMGPT_API_KEY = process.env.CUSTOMGPT_API_KEY;
-const CUSTOMGPT_AGENT_ID = process.env.CUSTOMGPT_AGENT_ID;
+const CUSTOMGPT_AGENT_UUID = process.env.CUSTOMGPT_AGENT_UUID;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -16,7 +17,7 @@ app.post('/chat', async (req, res) => {
 
     try {
         const response = await axios.post(
-            `https://app.customgpt.ai/api/v1/chat/${CUSTOMGPT_AGENT_ID}`,
+            `https://app.customgpt.ai/api/v1/chat/${CUSTOMGPT_AGENT_UUID}`,
             {
                 input: userMessage
             },
@@ -39,5 +40,5 @@ app.post('/chat', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`CustomGPT FINAL API server running on port ${port}`);
+    console.log(`CustomGPT API (UUID) is running on port ${port}`);
 });
